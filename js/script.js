@@ -71,7 +71,7 @@
   rv.forEach(function(el){io.observe(el)});
  }else rv.forEach(function(el){el.classList.add("in")});
  var rot=document.createElement("p");rot.className="rot";rot.innerHTML='Serve as a <b></b><span class="caret"></span>';
- hero.querySelector(".tag").after(rot);
+ if(document.body.dataset.page==="home")hero.querySelector(".tag").after(rot);
  var tb=rot.querySelector("b"),roles=["state trooper","sheriff's deputy","city officer","firefighter","medic","federal agent"],ri=0,ci=0,del=false;
  if(reduce){tb.textContent=roles[0]}else{(function type(){
   if(calm){tb.textContent=roles[0];ci=roles[0].length;del=true;ri=0;setTimeout(type,600);return}var w=roles[ri];ci+=del?-1:1;tb.textContent=w.slice(0,ci);
@@ -148,4 +148,16 @@
  var sv=null;try{sv=localStorage.getItem("gsc-calm")}catch(e){}
  setCalm(sv==="1");
  mb.addEventListener("click",function(){setCalm(!calm,true)});
+
+ // clean URLs: smooth-scroll to sections without adding #hash to the address bar
+ function clean(){try{history.replaceState(null,"",location.pathname+location.search)}catch(e){}}
+ document.addEventListener("click",function(e){
+  var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a)return;
+  var id=a.getAttribute("href").slice(1),t=id?document.getElementById(id):document.documentElement;
+  if(!t)return;
+  e.preventDefault();
+  t.scrollIntoView({behavior:calm?"auto":"smooth",block:"start"});
+  clean();
+ });
+ if(location.hash){var h0=document.getElementById(location.hash.slice(1));clean();if(h0)setTimeout(function(){h0.scrollIntoView({block:"start"})},60)}
 })();

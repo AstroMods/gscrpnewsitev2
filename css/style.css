@@ -186,3 +186,14 @@ footer p{margin:6px auto;max-width:60ch}
 @keyframes mq{to{transform:translateX(-50%)}}
 .motion{position:fixed;left:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:90;font:600 .95rem var(--head);padding:8px 16px;border-radius:20px;background:rgba(15,6,32,.88);color:var(--silver);border:1px solid rgba(255,43,214,.55);cursor:pointer;backdrop-filter:blur(8px);transition:box-shadow .2s}
 .motion:hover{box-shadow:0 0 18px rgba(255,43,214,.6)}
+
+/* ===== multi-page ===== */
+.hero.mini{min-height:60svh;padding:130px 0 130px}
+.hero.mini .mark .a{font-size:clamp(1.8rem,5.5vw,3.6rem)}
+.hero.mini .mark .b{font-size:clamp(3rem,10.5vw,7.4rem)}
+.hero.mini p.tag{margin:20px auto 0}
+.hero.mini .cta{margin-top:28px}
+nav a[aria-current=page]{color:var(--magenta);opacity:1;text-shadow:0 0 12px var(--magenta)}
+a.card{display:block;text-decoration:none;color:inherit}
+footer p a{margin:0 12px;text-decoration:none;color:var(--silver)}
+footer p a:hover{color:var(--magenta)}

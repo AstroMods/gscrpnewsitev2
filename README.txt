@@ -1,11 +1,8 @@
-Garden State Collective site
+Garden State Collective site (multi-page)
 
-index.html  - page markup
-css/style.css - all styles
-js/script.js  - all animations and interactions
-assets/collage.jpg - hero collage
+/ , /departments/ , /systems/ , /join/ , /faq/ , 404.html
+css/style.css - styles   js/script.js - animations and interactions   assets/ - images and icons
 
 Edit JOIN_URL and CONNECT_URL at the top of js/script.js to change the Discord and FiveM links.
-Upload the whole folder to your web host (keep the folder structure).
-
-Metadata: edit the canonical/og/twitter URLs in index.html if your domain is not https://gardenstatecollective.com . robots.txt and sitemap.xml also use that domain.
+Upload the CONTENTS of this folder so index.html is at the site root. Paths are root-based (/css/style.css), so host on a domain root, e.g. Cloudflare Pages.
+Canonical/og URLs assume https://gardenstatecollective.com - change if different.
