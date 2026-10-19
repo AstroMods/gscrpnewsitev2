@@ -121,11 +121,12 @@ footer p{margin:6px auto;max-width:60ch}
  .steps{grid-template-columns:1fr;gap:34px}
  section{padding:72px 0}
 }
-@media (prefers-reduced-motion:reduce){
- html{scroll-behavior:auto}
- *{animation:none!important;transition:none!important}
- .nj path{stroke-dashoffset:0}
-}
+.calm,html.calm{scroll-behavior:auto}
+.calm *,.calm *::before,.calm *::after{animation:none!important;transition:none!important}
+.calm .nj path{stroke-dashoffset:0}
+.calm .trace,.calm .fx,.calm .siren,.calm .cur,.calm .cur-dot{display:none}
+.calm .rv{opacity:1;transform:none}
+.calm .ticker .track{transform:none}
 /* ===== FX ===== */
 .progress{position:fixed;top:0;left:0;height:3px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--blue),var(--violet),var(--magenta),#ff9d2e);box-shadow:0 0 12px var(--magenta);z-index:60;pointer-events:none}
 .fx{position:absolute;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
@@ -166,3 +167,22 @@ footer p{margin:6px auto;max-width:60ch}
 .js .rv.in{opacity:1;transform:none}
 .pillars li{transition:background .25s,text-shadow .25s}
 .pillars li:hover{background:linear-gradient(180deg,rgba(255,43,214,.2),transparent);text-shadow:0 0 14px var(--magenta)}
+
+/* ===== always-on motion ===== */
+.mark .a{background:linear-gradient(100deg,#9d8ec4 0%,#9d8ec4 30%,#fff 42%,#fff 48%,#9d8ec4 60%,#9d8ec4 100%);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shim 4.5s linear infinite}
+@keyframes shim{from{background-position:100% 0}to{background-position:0% 0}}
+.mark .b{background:linear-gradient(90deg,var(--violet),var(--magenta),var(--pink),var(--magenta),var(--violet));background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:flick 1.6s 1.2s steps(1) 1,hue 5s linear infinite}
+@keyframes hue{from{background-position:0% 0}to{background-position:-220% 0}}
+.nj{animation:njp 2.6s ease-in-out infinite alternate}
+@keyframes njp{from{filter:drop-shadow(0 0 5px var(--magenta)) drop-shadow(0 0 14px var(--violet))}to{filter:drop-shadow(0 0 14px var(--magenta)) drop-shadow(0 0 40px var(--violet))}}
+.nj path.trace{fill:none;stroke:#fff;stroke-width:3.2;stroke-dasharray:.07 .93;stroke-dashoffset:1;animation:trace 3.4s linear 2.4s infinite}
+@keyframes trace{to{stroke-dashoffset:0}}
+.win{fill:#ffd6fb;opacity:.1;animation:tw 3s ease-in-out infinite}
+@keyframes tw{0%,100%{opacity:.08}50%{opacity:1}}
+.ticker{overflow:hidden;margin-top:60px;padding:14px 0;border-block:1px solid rgba(255,43,214,.45);background:linear-gradient(90deg,rgba(122,43,255,.22),rgba(255,43,214,.2));transform:skewY(-1.2deg);box-shadow:0 0 30px rgba(122,43,255,.3)}
+.ticker .track{display:flex;width:max-content;animation:mq 32s linear infinite}
+.ticker span{font:700 1.5rem var(--head);white-space:nowrap;padding-right:34px;color:var(--silver);text-shadow:0 0 12px rgba(255,43,214,.7)}
+.ticker:hover .track{animation-play-state:paused}
+@keyframes mq{to{transform:translateX(-50%)}}
+.motion{position:fixed;left:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:90;font:600 .95rem var(--head);padding:8px 16px;border-radius:20px;background:rgba(15,6,32,.88);color:var(--silver);border:1px solid rgba(255,43,214,.55);cursor:pointer;backdrop-filter:blur(8px);transition:box-shadow .2s}
+.motion:hover{box-shadow:0 0 18px rgba(255,43,214,.6)}
