@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Internal community decision tracking and staff administration.">
+  <title>Community Decisions & Staff Review</title>
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --bg: #f3f6fa;
+  --surface: #ffffff;
+  --surface-soft: #f8fafc;
+  --ink: #182230;
+  --muted: #697586;
+  --line: #e3e9f1;
+  --navy: #14243b;
+  --navy-2: #203b5c;
+  --blue: #2864c5;
+  --blue-soft: #edf4ff;
+  --green: #16734b;
+  --green-soft: #e9f7ef;
+  --amber: #9b5b08;
+  --amber-soft: #fff4df;
+  --red: #b42332;
+  --red-soft: #fff0f1;
+  --shadow: 0 16px 40px rgba(22, 42, 70, .06);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--bg);
+  font-family: "DM Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.6;
+}
+a { color: inherit; }
+button { font: inherit; }
+.page-shell { max-width: 1440px; margin: 0 auto; padding: 0 42px 48px; }
+.topbar {
+  min-height: 86px; display: flex; align-items: center; justify-content: space-between;
+  gap: 20px; border-bottom: 1px solid #e1e7ef;
+}
+.brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; }
+.brand-mark, .footer-seal {
+  display: grid; place-items: center; width: 43px; height: 43px; border-radius: 12px;
+  color: white; background: var(--navy); font-family: Manrope, sans-serif; font-weight: 800; letter-spacing: -.06em;
+}
+.brand strong { display: block; font-family: Manrope, sans-serif; font-size: 14px; letter-spacing: -.02em; }
+.brand small { display: block; color: var(--muted); font-size: 12px; margin-top: 1px; }
+.topbar-actions { display: flex; align-items: center; gap: 18px; }
+.confidential { color: #556274; font-size: 12px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+.status-dot { width: 7px; height: 7px; background: #269765; border-radius: 50%; box-shadow: 0 0 0 4px #e2f5eb; }
+.button { cursor: pointer; border: 1px solid #d8e0ea; border-radius: 9px; padding: 10px 14px; font-size: 12px; font-weight: 700; transition: .2s ease; }
+.button-quiet { background: white; color: #344256; }
+.button-quiet:hover { background: #edf3fa; border-color: #c3d0e0; }
+.hero {
+  position: relative; overflow: hidden; margin-top: 32px; padding: 46px 52px;
+  border-radius: 20px; background: linear-gradient(115deg, #14243b 0%, #1d3554 62%, #28496d 100%);
+  color: white; display: flex; align-items: center; justify-content: space-between; gap: 36px;
+  box-shadow: 0 18px 36px rgba(20, 36, 59, .14);
+}
+.hero:after { content: ""; position: absolute; width: 450px; height: 450px; right: 100px; top: -320px; border: 1px solid rgba(255,255,255,.09); border-radius: 50%; box-shadow: 0 0 0 40px rgba(255,255,255,.025), 0 0 0 80px rgba(255,255,255,.02); }
+.hero-copy { max-width: 760px; position: relative; z-index: 1; }
+.eyebrow { margin: 0 0 10px; color: #7797c4; font-size: 10px; font-weight: 800; letter-spacing: .17em; }
+.hero .eyebrow { color: #a9c7ef; }
+h1, h2, h3, p { margin-top: 0; }
+h1, h2, h3 { font-family: Manrope, "DM Sans", sans-serif; }
+h1 { margin-bottom: 16px; max-width: 700px; font-size: clamp(30px, 4vw, 47px); line-height: 1.13; letter-spacing: -.045em; font-weight: 800; }
+h1 span { color: #a9c7ef; }
+.hero-description { max-width: 690px; margin-bottom: 24px; color: #d1dbea; font-size: 14px; line-height: 1.8; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 20px; color: #c3d0e1; font-size: 11px; font-weight: 600; }
+.meta-icon { color: #9fc4fa; margin-right: 6px; }
+.hero-emblem { position: relative; z-index: 1; min-width: 125px; display: flex; flex-direction: column; align-items: center; gap: 12px; color: #b8c9df; font-size: 9px; text-align: center; letter-spacing: .16em; font-weight: 800; }
+.emblem-ring { display: grid; place-items: center; width: 102px; height: 102px; border: 1px solid rgba(205,224,250,.5); border-radius: 50%; outline: 1px solid rgba(205,224,250,.16); outline-offset: 7px; }
+.emblem-ring span { font-family: Manrope, sans-serif; font-size: 29px; font-weight: 800; letter-spacing: -.08em; color: #dbe9fb; }
+.overview-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin: 20px 0 34px; }
+.overview-card { padding: 19px 22px; border: 1px solid var(--line); border-radius: 13px; background: var(--surface); box-shadow: 0 4px 14px rgba(22,42,70,.025); }
+.overview-label, .overview-note { display: block; color: var(--muted); font-size: 11px; }
+.overview-card strong { display: block; margin: 3px 0 0; color: var(--navy); font: 800 25px Manrope, sans-serif; letter-spacing: -.04em; }
+.overview-note { margin-top: 2px; font-size: 10px; }
+.content-layout { display: grid; grid-template-columns: 220px minmax(0, 1fr); align-items: start; gap: 28px; }
+.sidebar { position: sticky; top: 22px; padding: 21px 14px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); }
+.sidebar-heading { padding: 0 10px 12px; color: #8a96a7; font-size: 9px; font-weight: 800; letter-spacing: .14em; }
+.section-nav { display: grid; gap: 4px; }
+.section-nav a { padding: 10px 11px; border-radius: 8px; color: #627084; font-size: 12px; font-weight: 600; text-decoration: none; border-left: 2px solid transparent; transition: .18s ease; }
+.section-nav a:hover { color: var(--navy); background: #f4f7fb; }
+.section-nav a.active { color: #244f8d; background: #edf4ff; border-left-color: #3b78d3; }
+.sidebar-note { display: flex; gap: 9px; margin: 22px 4px 0; padding: 12px 10px; border-top: 1px solid var(--line); }
+.sidebar-note p { margin: 0; color: #7b8797; font-size: 10px; line-height: 1.65; }
+.note-symbol { flex: 0 0 18px; display: grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; background: #eef2f7; color: #66758a; font-size: 11px; font-weight: 800; }
+.main-content { min-width: 0; }
+.summary-panel, .decision-section, .notes-panel { margin-bottom: 22px; padding: 28px 30px; border: 1px solid var(--line); border-radius: 15px; background: var(--surface); box-shadow: 0 5px 18px rgba(22,42,70,.025); }
+.section-heading { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin-bottom: 18px; }
+.section-heading .eyebrow { margin-bottom: 4px; }
+h2 { margin-bottom: 0; color: var(--navy); font-size: 22px; line-height: 1.3; letter-spacing: -.035em; }
+h3 { margin-bottom: 4px; color: #263449; font-size: 13px; line-height: 1.45; letter-spacing: -.01em; }
+.lead { margin-bottom: 22px; color: #5d6a7d; font-size: 13px; line-height: 1.8; }
+.tag { flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; padding: 5px 9px; border-radius: 6px; font-size: 9px; font-weight: 800; line-height: 1.4; }
+.tag-blue { background: var(--blue-soft); color: var(--blue); }
+.tag-green { background: var(--green-soft); color: var(--green); }
+.tag-amber { background: var(--amber-soft); color: var(--amber); }
+.tag-red { background: var(--red-soft); color: var(--red); }
+.tag-slate { background: #eef2f6; color: #59677a; }
+.summary-list { display: grid; }
+.summary-item { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 13px; padding: 16px 0; border-top: 1px solid #edf0f5; }
+.summary-number { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 8px; background: #f0f5fc; color: #3e6fae; font: 800 10px Manrope, sans-serif; }
+.summary-item p, .decision-row p { margin: 0; color: #687589; font-size: 12px; line-height: 1.75; }
+.decision-section { scroll-margin-top: 20px; }
+.decision-list { display: grid; }
+.decision-row { display: grid; grid-template-columns: 34px minmax(0, 1fr) auto; align-items: center; gap: 13px; padding: 15px 0; border-top: 1px solid #edf0f5; }
+.decision-row:first-child { border-top: 1px solid #edf0f5; }
+.decision-icon { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 9px; font-size: 10px; font-weight: 800; }
+.icon-red { color: var(--red); background: var(--red-soft); }
+.icon-amber { color: var(--amber); background: var(--amber-soft); }
+.icon-blue { color: var(--blue); background: var(--blue-soft); }
+.icon-slate { color: #637287; background: #eef2f6; }
+.icon-green { color: var(--green); background: var(--green-soft); }
+.critical { color: var(--red); letter-spacing: .015em; }
+.section-footnote { margin: 15px 0 0; padding: 12px 14px; border-radius: 8px; background: #f7f9fc; color: #687589; font-size: 11px; }
+.notes-panel { scroll-margin-top: 20px; }
+.general-list { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.general-list li { position: relative; padding-left: 24px; color: #647186; font-size: 12px; line-height: 1.75; }
+.general-list li:before { content: "✓"; position: absolute; left: 0; top: 1px; display: grid; place-items: center; width: 16px; height: 16px; border-radius: 50%; background: var(--green-soft); color: var(--green); font-size: 10px; font-weight: 800; }
+.document-footer { display: flex; align-items: center; gap: 13px; padding: 22px 4px 0; color: #657286; }
+.footer-seal { width: 35px; height: 35px; border-radius: 9px; font-size: 12px; }
+.document-footer strong { display: block; color: #354257; font-size: 11px; }
+.document-footer p { margin: 2px 0 0; font-size: 10px; color: #8a95a4; }
+.footer-label { margin-left: auto; color: #a0a9b5; font-size: 9px; font-weight: 800; letter-spacing: .13em; }
+
+@media (max-width: 1000px) {
+  .page-shell { padding: 0 22px 36px; }
+  .content-layout { grid-template-columns: 1fr; }
+  .sidebar { position: static; padding: 14px; }
+  .section-nav { display: flex; flex-wrap: wrap; }
+  .sidebar-note { display: none; }
+  .sidebar-heading { padding-bottom: 8px; }
+}
+@media (max-width: 650px) {
+  .page-shell { padding: 0 13px 26px; }
+  .topbar { min-height: 72px; }
+  .brand strong { font-size: 12px; }
+  .topbar-actions { gap: 10px; }
+  .confidential { display: none; }
+  .button { padding: 9px 10px; font-size: 11px; }
+  .hero { margin-top: 18px; padding: 29px 24px; border-radius: 15px; }
+  .hero-emblem { display: none; }
+  h1 { font-size: 32px; }
+  .hero-description { font-size: 12px; }
+  .hero-meta { gap: 10px; font-size: 10px; }
+  .overview-grid { grid-template-columns: 1fr; gap: 9px; margin: 14px 0 22px; }
+  .overview-card { padding: 14px 17px; }
+  .overview-card strong { font-size: 21px; }
+  .overview-note { display: inline; margin-left: 8px; }
+  .summary-panel, .decision-section, .notes-panel { padding: 21px 17px; margin-bottom: 15px; }
+  .section-heading { align-items: flex-start; }
+  h2 { font-size: 20px; }
+  .decision-row { grid-template-columns: 31px minmax(0, 1fr); gap: 10px; }
+  .decision-row > .tag { grid-column: 2; justify-self: start; }
+  .decision-icon { width: 30px; height: 30px; }
+  .section-nav a { padding: 8px; font-size: 11px; }
+  .footer-label { display: none; }
+}
+@media print {
+  :root { --bg: #fff; }
+  body { background: white; color: #111; font-size: 10pt; }
+  .page-shell { max-width: none; padding: 0; }
+  .topbar { min-height: 55px; }
+  .topbar-actions, .sidebar, .hero-emblem { display: none !important; }
+  .hero { margin-top: 16px; padding: 25px; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  .overview-grid { margin: 14px 0 20px; }
+  .content-layout { display: block; }
+  .summary-panel, .decision-section, .notes-panel { box-shadow: none; break-inside: avoid; padding: 20px; margin-bottom: 14px; }
+  .decision-row, .summary-item { break-inside: avoid; }
+  .document-footer { break-inside: avoid; }
+  a { text-decoration: none; }
+}
+
+  </style>
+  <script>
+(() => {
+  const printButton = document.getElementById("printButton");
+  if (printButton) {
+    printButton.addEventListener("click", () => window.print());
+  }
+
+  const navLinks = Array.from(document.querySelectorAll(".section-nav a"));
+  const sections = navLinks
+    .map(link => document.querySelector(link.getAttribute("href")))
+    .filter(Boolean);
+
+  if ("IntersectionObserver" in window && sections.length) {
+    const observer = new IntersectionObserver(entries => {
+      const visible = entries
+        .filter(entry => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+      if (!visible) return;
+      navLinks.forEach(link => {
+        const active = link.getAttribute("href") === `#${visible.target.id}`;
+        link.classList.toggle("active", active);
+        if (active) link.setAttribute("aria-current", "location");
+        else link.removeAttribute("aria-current");
+      });
+    }, {
+      rootMargin: "-12% 0px -70% 0px",
+      threshold: [0, 0.15, 0.4, 0.7]
+    });
+
+    sections.forEach(section => observer.observe(section));
+  }
+})();
+  </script>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="Community Decisions home">
+        <span class="brand-mark">CD</span>
+        <span><strong>Community Operations</strong><small>Internal records</small></span>
+      </a>
+      <div class="topbar-actions">
+        <span class="confidential"><span class="status-dot"></span> Internal review</span>
+        <button class="button button-quiet" id="printButton" type="button">Print / Save PDF</button>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">COMMUNITY GOVERNANCE / REVIEW RECORD</p>
+          <h1>Community Decisions <span>&amp; Staff Review</span></h1>
+          <p class="hero-description">A centralized summary of community decisions regarding bans, staff eligibility, departmental applications, and the Code of Conduct.</p>
+          <div class="hero-meta">
+            <span><span class="meta-icon">▤</span> Decision record</span>
+            <span><span class="meta-icon">◈</span> Internal administration</span>
+          </div>
+        </div>
+        <div class="hero-emblem" aria-hidden="true">
+          <div class="emblem-ring"><span>CD</span></div>
+          <small>COMMUNITY<br>RECORDS</small>
+        </div>
+      </section>
+
+      <section class="overview-grid" aria-label="Record overview">
+        <article class="overview-card">
+          <span class="overview-label">Review groups</span>
+          <strong>4</strong>
+          <span class="overview-note">Community perspectives</span>
+        </article>
+        <article class="overview-card">
+          <span class="overview-label">Primary focus</span>
+          <strong>Conduct</strong>
+          <span class="overview-note">Rules and accountability</span>
+        </article>
+        <article class="overview-card">
+          <span class="overview-label">Open clarification</span>
+          <strong>Pending</strong>
+          <span class="overview-note">Where no outcome was given</span>
+        </article>
+      </section>
+
+      <div class="content-layout">
+        <aside class="sidebar">
+          <div class="sidebar-heading">IN THIS RECORD</div>
+          <nav class="section-nav" aria-label="Page sections">
+            <a class="active" href="#summary">Overall summary</a>
+            <a href="#john-bud">John &amp; Bud</a>
+            <a href="#sponge-rosey">Sponge &amp; Rosey</a>
+            <a href="#ethan">Ethan</a>
+            <a href="#maeve">Maeve</a>
+            <a href="#general-notes">General notes</a>
+          </nav>
+          <div class="sidebar-note">
+            <span class="note-symbol">i</span>
+            <p>This page records the decisions supplied for review. It does not create or change server permissions.</p>
+          </div>
+        </aside>
+
+        <div class="main-content">
+          <section class="summary-panel" id="summary">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">EXECUTIVE OVERVIEW</p>
+                <h2>Overall Summary</h2>
+              </div>
+              <span class="tag tag-blue">At a glance</span>
+            </div>
+            <p class="lead">The Community reviewed ban status, staff eligibility, department applications, and adherence to the Code of Conduct (CoC). The overall direction is to uphold existing disciplinary decisions, apply community rules consistently, and consider exceptions only when stated conditions are met.</p>
+            <div class="summary-list">
+              <div class="summary-item">
+                <span class="summary-number">01</span>
+                <div><h3>Ban decisions</h3><p>Existing bans remain in place. Andy is explicitly not to be unbanned, and Maeve recommends that Steve remain banned due to the reported use of a racial slur.</p></div>
+              </div>
+              <div class="summary-item">
+                <span class="summary-number">02</span>
+                <div><h3>Staff and department eligibility</h3><p>Barnes is not currently eligible to rejoin staff or join the FBI. A possible staff reconsideration depends on resolving the issues with Ethan and observing the rank restriction.</p></div>
+              </div>
+              <div class="summary-item">
+                <span class="summary-number">03</span>
+                <div><h3>Ryxo and the CoC</h3><p>Ryxo's reconsideration is described as having a 1% chance. He must follow the CoC and apply to departments before any staff consideration; concerns about his judgment were also raised.</p></div>
+              </div>
+              <div class="summary-item">
+                <span class="summary-number">04</span>
+                <div><h3>Applications and unresolved matters</h3><p>LOI guidance differs between the reviewing groups. Any matter without a specified outcome should remain pending clarification rather than be treated as a final decision.</p></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="decision-section" id="john-bud">
+            <div class="section-heading">
+              <div><p class="eyebrow">REVIEW GROUP 01</p><h2>John &amp; Bud</h2></div>
+              <span class="tag tag-green">CoC alignment</span>
+            </div>
+            <div class="decision-list">
+              <article class="decision-row alert-row">
+                <span class="decision-icon icon-red">!</span>
+                <div><h3>Banned users</h3><p>All banned users are to remain banned. <strong class="critical">DO NOT UNBAN ANDY.</strong></p></div>
+                <span class="tag tag-red">Maintain ban</span>
+              </article>
+              <article class="decision-row">
+                <span class="decision-icon icon-amber">%</span>
+                <div><h3>Ryxo</h3><p>Has a 1% chance of reconsideration. Before being considered for staff, he must follow the Code of Conduct and apply to departments.</p></div>
+                <span class="tag tag-amber">Highly unlikely</span>
+              </article>
+              <article class="decision-row">
+                <span class="decision-icon icon-blue">LOI</span>
+                <div><h3>Letters of Interest (LOIs)</h3><p>Permitted under this group's position.</p></div>
+                <span class="tag tag-blue">Permitted</span>
+              </article>
+              <article class="decision-row">
+                <span class="decision-icon icon-slate">✓</span>
+                <div><h3>James</h3><p>Must follow the Code of Conduct.</p></div>
+                <span class="tag tag-slate">Required</span>
+              </article>
+            </div>
+            <p class="section-footnote">Both John and Bud agreed with the Community's position regarding the CoC.</p>
+          </section>
+
+          <section class="decision-section" id="sponge-rosey">
+            <div class="section-heading">
+              <div><p class="eyebrow">REVIEW GROUP 02</p><h2>Sponge &amp; Rosey</h2></div>
+              <span class="tag tag-green">CoC alignment</span>
+            </div>
+            <div class="decision-list">
+              <article class="decision-row alert-row">
+                <span class="decision-icon icon-red">FBI</span>
+                <div><h3>Barnes — FBI eligibility</h3><p>Barnes is not permitted to join the FBI Department.</p></div>
+                <span class="tag tag-red">Not permitted</span>
+              </article>
+              <article class="decision-row">
+                <span class="decision-icon icon-amber">LOI</span>
+                <div><h3>Staff and department LOIs</h3><p>LOIs are not permitted for staff positions or departments under this group's position.</p></div>
+                <span class="tag tag-amber">Not permitted</span>
+              </article>
+            </div>
+            <p class="section-footnote">Both Sponge and Rosey agreed with the Community's position regarding the CoC.</p>
+          </section>
+
+          <section class="decision-section" id="ethan">
+            <div class="section-heading">
+              <div><p class="eyebrow">REVIEW GROUP 03</p><h2>Ethan</h2></div>
+              <span class="tag tag-amber">Conditional review</span>
+            </div>
+            <div class="decision-list">
+              <article class="decision-row">
+                <span class="decision-icon icon-slate">DM</span>
+                <div><h3>Previous conduct</h3><p>Barnes caused drama with Ethan through direct messages (DMs).</p></div>
+              </article>
+              <article class="decision-row alert-row">
+                <span class="decision-icon icon-red">×</span>
+                <div><h3>Current staff eligibility</h3><p>Barnes is not permitted to rejoin the staff team at this time.</p></div>
+                <span class="tag tag-red">Not eligible now</span>
+              </article>
+              <article class="decision-row">
+                <span class="decision-icon icon-blue">↻</span>
+                <div><h3>Conditions for reinstatement</h3><p>Barnes may be considered for a staff position again if he has a civil conversation with Ethan and resolves the outstanding issues.</p></div>
+                <span class="tag tag-blue">Conditional</span>
+              </article>
+              <article class="decision-row">
+                <span class="decision-icon icon-amber">↕</span>
+                <div><h3>Rank restriction</h3><p>If reinstated, Barnes cannot hold a rank higher than Ethan.</p></div>
+                <span class="tag tag-amber">Restriction</span>
+              </article>
+              <article class="decision-row">
+                <span class="decision-icon icon-green">✦</span>
+                <div><h3>Media assistance</h3><p>Barnes may assist with media-related activities within the server.</p></div>
+                <span class="tag tag-green">Permitted</span>
+              </article>
+              <article class="decision-row">
+                <span class="decision-icon icon-slate">…</span>
+                <div><h3>Steve</h3><p>No further action or decision was specified in Ethan's review.</p></div>
+                <span class="tag tag-slate">Unspecified</span>
+              </article>
+            </div>
+          </section>
+
+          <section class="decision-section" id="maeve">
+            <div class="section-heading">
+              <div><p class="eyebrow">REVIEW GROUP 04</p><h2>Maeve</h2></div>
+              <span class="tag tag-red">Ban recommendation</span>
+            </div>
+            <div class="decision-list">
+              <article class="decision-row alert-row">
+                <span class="decision-icon icon-red">!</span>
+                <div><h3>Steve — ban status</h3><p>Maeve recommends that Steve remain banned due to using an explicit racial slur (the Hard R) toward a Black individual.</p></div>
+                <span class="tag tag-red">Remain banned</span>
+              </article>
+              <article class="decision-row">
+                <span class="decision-icon icon-amber">!</span>
+                <div><h3>Ryxo — conduct concerns</h3><p>Maeve expressed concerns regarding Ryxo's behavior and judgment.</p></div>
+                <span class="tag tag-amber">Concerns raised</span>
+              </article>
+            </div>
+          </section>
+
+          <section class="notes-panel" id="general-notes">
+            <div class="section-heading">
+              <div><p class="eyebrow">ADMINISTRATIVE GUIDANCE</p><h2>General Notes</h2></div>
+            </div>
+            <ul class="general-list">
+              <li>All decisions should be handled in accordance with the Community's established rules and Code of Conduct.</li>
+              <li>Any reconsideration of staff eligibility or ban status must follow the conditions outlined in this record.</li>
+              <li>Where different groups have provided different guidance, preserve the distinction and seek clarification before treating one position as universal.</li>
+              <li>Items without a specified outcome remain pending further clarification.</li>
+            </ul>
+          </section>
+
+          <footer class="document-footer">
+            <div class="footer-seal">CD</div>
+            <div><strong>Community Decisions &amp; Staff Review</strong><p>Internal community decision tracking and staff administration.</p></div>
+            <span class="footer-label">END OF RECORD</span>
+          </footer>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
