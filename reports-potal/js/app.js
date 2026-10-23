@@ -19,5 +19,12 @@ document.addEventListener("DOMContentLoaded",()=>{
   document.body.insertAdjacentHTML("afterbegin",`<a class="skip" href="#main">Skip to content</a><header class="top"><a class="brand" href="index.html"><i></i>${GSC.esc(C.siteName)}</a><nav aria-label="Main">${links}</nav><button id="mode" aria-label="Toggle light or dark mode">Theme</button></header>${banners}`);
   document.body.insertAdjacentHTML("beforeend",`<footer>${GSC.esc(C.footer)}</footer><div id="toasts" aria-live="polite"></div>`);
   document.getElementById("mode").onclick=()=>{const m=root.dataset.mode==="dark"?"light":"dark";root.dataset.mode=m;try{localStorage.setItem("gsc_mode",m)}catch(e){}};
+  if(C.integrations.discordEnabled&&C.integrations.endpoint){
+    const b=document.createElement("div");b.className="banner";b.setAttribute("role","status");b.textContent="Checking Discord relay…";
+    document.querySelector(".top").after(b);
+    fetch(C.integrations.endpoint.replace(/\/+$/,"")+"/status",{cache:"no-store"}).then(r=>{if(!r.ok)throw 0;return r.json()}).then(d=>{
+      b.textContent="Discord relay: "+({operational:"online and working",degraded:"online, but some channels are not working",offline:"not working"}[d.state]||d.state)+".";
+      if(d.state!=="operational")b.classList.add("warn")}).catch(()=>{b.textContent="Discord relay: cannot be reached. Check the endpoint in config.js.";b.classList.add("warn")});
+  }
 });
 })();

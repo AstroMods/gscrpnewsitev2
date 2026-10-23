@@ -1,0 +1,9 @@
+name = "gsc-report-relay"
+main = "worker.js"
+compatibility_date = "2026-10-01"
+
+[vars]
+# Change to your real site origin, no trailing slash
+ALLOWED_ORIGIN = "https://gardenstatecollective.com"
+# Optional: full URL of your dashboard page, used as the embed link
+SITE_URL = "https://gardenstatecollective.com/reports-portal/dashboard.html"

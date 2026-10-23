@@ -15,11 +15,13 @@ Edit `config.js`: site name, theme color, nav, banners, priorities, statuses, pa
 Edit `data/report-templates.json`. Add an object to `templates` with `id`, `title`, `description`, `color`, and `fields`. Field `type` can be `text`, `textarea`, `select`, `multiselect`, or `date`. Set `required: true` and, for select types, `options`. "Staff Strike" uses a plain text field for rank so any rank can be typed.
 
 ## Discord delivery (secure)
-GitHub Pages cannot hide secrets, so webhooks live in a Cloudflare Worker:
-1. Create a Worker and add one secret per webhook, for example `WEBHOOK_STAFF`, `WEBHOOK_APPEALS`, `WEBHOOK_DEFAULT` (Worker → Settings → Variables and Secrets).
-2. In the Worker, map `templateId` to a secret (server-side), validate the payload, restrict CORS to your site origin, and POST a Discord embed (title, ref, priority, timestamp, fields from `data`, footer "Garden State Collective", color).
-3. Put the Worker URL in `config.js` → `integrations.endpoint`.
-If you need message authentication, use server-side HMAC-SHA-256 with a secret. SHA-256 alone is a hash, not encryption.
+The `worker/` folder holds a Cloudflare Worker that relays reports to Discord and serves a status page. Webhooks live only in Worker secrets.
+1. In Cloudflare: Workers & Pages -> Create -> Create Worker -> Deploy, then Edit code, paste all of `worker/worker.js`, and Deploy. (Do not use the Pages upload: it rejects Workers.)
+2. Worker -> Settings -> Variables and Secrets. Add `ALLOWED_ORIGIN` (text, your site such as `https://gardenstatecollective.com`; comma-separate extra addresses like the www version) and `WEBHOOK_DEFAULT` (secret). Optional secrets: `WEBHOOK_STAFF`, `WEBHOOK_APPEALS`, `WEBHOOK_INVESTIGATIONS`, `WEBHOOK_DISCORD`, `WEBHOOK_MANAGEMENT`. Optional text `SITE_URL`.
+3. Open your `*.workers.dev` URL. The status page should say Operational. `/status` returns the same as JSON.
+4. Put the Worker URL in `config.js` -> `integrations.endpoint`. The site then shows a relay status banner and sends reports to Discord.
+Terminal alternative: edit `worker/wrangler.toml`, run `wrangler login`, `wrangler secret put WEBHOOK_DEFAULT` (and others), then `wrangler deploy`.
+Message authentication, if you ever need it, must use server-side HMAC-SHA-256 with a secret. SHA-256 alone is a hash, not encryption. Add a Cloudflare rate limiting rule on the Worker route.
 
 ## Demo vs connected mode
 - **Demo mode** (`endpoint` empty): reports and dashboard edits live only in your browser's localStorage, with labeled sample records. Not shared, not secure.
