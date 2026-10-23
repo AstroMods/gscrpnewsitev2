@@ -17,6 +17,6 @@ window.GSC_CONFIG = {
   statuses: ["Open", "In review", "Resolved", "Closed"],
   pagination: { pageSize: 8 },
   // Leave endpoint empty for demo mode. Set it to your Cloudflare Worker URL for live delivery.
-  integrations: { discordEnabled: true, endpoint: "", deliveryMode: "serverless" },
+  integrations: { discordEnabled: true, endpoint: "https://reports-api.gardenstatecollective.com", deliveryMode: "serverless" },
   links: { discord: "https://discord.gardenstatecollective.com/", contact: "" }
 };
