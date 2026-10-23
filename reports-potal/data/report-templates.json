@@ -1,0 +1,69 @@
+{"templates":[
+{"id":"investigation","title":"Investigation Report","color":"#8700FF","description":"Open or document a staff or player investigation.","fields":[
+{"name":"subject","label":"Subject of investigation","type":"text","required":true},
+{"name":"caseType","label":"Investigation type","type":"select","required":true,"options":["Staff conduct","Player conduct","Rule violation","Exploit / cheating","Other"]},
+{"name":"findings","label":"Findings so far","type":"textarea","required":true},
+{"name":"actionRecommended","label":"Recommended action","type":"textarea"}]},
+{"id":"staff-movement","title":"Staff Movement Report","color":"#6A5BFF","description":"Record joins, leaves, transfers and department moves.","fields":[
+{"name":"staffMember","label":"Staff member","type":"text","required":true},
+{"name":"movement","label":"Movement type","type":"select","required":true,"options":["Joined","Left","Transferred","Rank change","Returned"]},
+{"name":"fromRank","label":"Previous rank / department","type":"text"},
+{"name":"toRank","label":"New rank / department","type":"text"},
+{"name":"effectiveDate","label":"Effective date","type":"date","required":true},
+{"name":"reason","label":"Reason","type":"textarea","required":true}]},
+{"id":"discord-user","title":"Discord User Report","color":"#5865F2","description":"Report a user in the Discord server.","fields":[
+{"name":"discordUser","label":"Reported user (name or ID)","type":"text","required":true},
+{"name":"violation","label":"Violation","type":"multiselect","required":true,"options":["Harassment","Spam","NSFW content","Advertising","Impersonation","Hate speech","Other"]},
+{"name":"channel","label":"Channel / location","type":"text"},
+{"name":"messageLinks","label":"Message links","type":"textarea"},
+{"name":"details","label":"What happened","type":"textarea","required":true}]},
+{"id":"strike-demotion","title":"Strike / Demotion Report","color":"#E5484D","description":"Issue a strike or demotion to a staff member.","fields":[
+{"name":"staffMember","label":"Staff member","type":"text","required":true},
+{"name":"action","label":"Action","type":"select","required":true,"options":["Strike","Demotion","Strike and demotion"]},
+{"name":"currentRank","label":"Current rank","type":"text","required":true},
+{"name":"newRank","label":"New rank (if demoted)","type":"text"},
+{"name":"reason","label":"Reason","type":"textarea","required":true}]},
+{"id":"staff-strike","title":"Staff Strike","color":"#F76B15","description":"Log a staff strike. Type the rank exactly as it appears.","fields":[
+{"name":"staffMember","label":"Staff member","type":"text","required":true},
+{"name":"rank","label":"Rank (type it in)","type":"text","required":true,"placeholder":"e.g. Senior Moderator"},
+{"name":"strikeCount","label":"Strike number","type":"select","required":true,"options":["1","2","3"]},
+{"name":"reason","label":"Reason","type":"textarea","required":true}]},
+{"id":"warning","title":"Warning Report","color":"#FFB224","description":"Issue a formal warning.","fields":[
+{"name":"recipient","label":"Warned person","type":"text","required":true},
+{"name":"warningLevel","label":"Warning level","type":"select","required":true,"options":["Verbal","Written","Final"]},
+{"name":"rule","label":"Rule broken","type":"text","required":true},
+{"name":"details","label":"Details","type":"textarea","required":true}]},
+{"id":"blacklist","title":"Blacklist Report","color":"#7C7C8A","description":"Request or record a blacklist.","fields":[
+{"name":"target","label":"Person (name, Discord ID, license)","type":"text","required":true},
+{"name":"scope","label":"Blacklist scope","type":"select","required":true,"options":["Server","Discord","Department","Staff team"]},
+{"name":"duration","label":"Duration","type":"select","required":true,"options":["30 days","90 days","1 year","Permanent"]},
+{"name":"reason","label":"Reason","type":"textarea","required":true}]},
+{"id":"staff-review","title":"Staff Review","color":"#30A46C","description":"Review a staff member's performance.","fields":[
+{"name":"staffMember","label":"Staff member","type":"text","required":true},
+{"name":"rank","label":"Rank","type":"text","required":true},
+{"name":"rating","label":"Overall rating","type":"select","required":true,"options":["1 - Poor","2 - Below average","3 - Meets expectations","4 - Strong","5 - Outstanding"]},
+{"name":"strengths","label":"Strengths","type":"textarea","required":true},
+{"name":"improvements","label":"Areas to improve","type":"textarea"}]},
+{"id":"promotion-request","title":"Promotion Request","color":"#00A2C7","description":"Request a promotion for a staff member.","fields":[
+{"name":"staffMember","label":"Staff member","type":"text","required":true},
+{"name":"currentRank","label":"Current rank","type":"text","required":true},
+{"name":"requestedRank","label":"Requested rank","type":"text","required":true},
+{"name":"timeInRank","label":"Time in current rank","type":"text"},
+{"name":"justification","label":"Justification","type":"textarea","required":true}]},
+{"id":"ban-appeal","title":"Ban Appeal","color":"#AB4ABA","description":"Submit or review a ban appeal.","fields":[
+{"name":"appellant","label":"Appellant (name / Discord ID)","type":"text","required":true},
+{"name":"banReason","label":"Ban reason given","type":"text","required":true},
+{"name":"banDate","label":"Ban date","type":"date"},
+{"name":"appeal","label":"Appeal statement","type":"textarea","required":true},
+{"name":"decision","label":"Reviewer recommendation","type":"select","options":["Pending","Approve","Deny","Reduce"]}]},
+{"id":"loa","title":"LOA Notice","color":"#12A594","description":"Notify Management of a leave of absence.","fields":[
+{"name":"staffMember","label":"Staff member","type":"text","required":true},
+{"name":"rank","label":"Rank","type":"text","required":true},
+{"name":"startDate","label":"Start date","type":"date","required":true},
+{"name":"endDate","label":"Expected return","type":"date","required":true},
+{"name":"reason","label":"Reason (share what you are comfortable with)","type":"textarea"}]},
+{"id":"staff-suggestion","title":"Staff Suggestion","color":"#FF8DCC","description":"Suggest improvements for the staff team or server.","fields":[
+{"name":"area","label":"Area","type":"select","required":true,"options":["Staff team","Server","Discord","Training","Website","Other"]},
+{"name":"suggestion","label":"Suggestion","type":"textarea","required":true},
+{"name":"benefit","label":"Expected benefit","type":"textarea"}]}
+]}
