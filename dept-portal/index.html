@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Department Portal | Garden State Collective</title>
+<meta name="description" content="Garden State Collective department portal: Discord servers and handbooks for every agency.">
+<meta property="og:title" content="Department Portal | Garden State Collective">
+<meta property="og:description" content="Garden State Collective department portal: Discord servers and handbooks for every agency.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#070914">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/portal.css">
+</head>
+<body data-page="home" data-base="">
+<canvas id="sky" aria-hidden="true"></canvas>
+<nav><div class="wrap">
+<a class="brand" href="./"><span class="badge"></span>Garden State <span style="color:var(--pink)">Collective</span></a>
+<div class="links" id="links"><a href="#departments">Departments</a><a href="#hub">Hub</a><a href="#documents">Documents</a>
+<a href="https://discord.gardenstatecollective.com/" target="_blank" rel="noopener">Main Discord</a></div>
+<div class="kbd" id="openPal" role="button" tabindex="0">Search <b>Ctrl K</b></div>
+<button class="burger" id="burger" aria-label="Menu">☰</button></div></nav>
+
+<header class="hero wrap" id="top">
+  <span class="eyebrow"><span class="dot"></span>All departments online</span>
+  <h1 class="glow">Department Portal</h1>
+  <p>One place for every Garden State Collective agency. Every department has its own page with its Discord and live handbook.</p>
+  <div class="cta"><a class="btn pri" href="#departments">Browse departments</a><a class="btn" href="#documents">Handbooks</a>
+  <a class="btn" href="https://discord.gardenstatecollective.com/hub" target="_blank" rel="noopener">Department Hub</a></div>
+  <div class="stats"><div class="stat"><b data-n="7">0</b><span>Agencies</span></div><div class="stat"><b data-n="6">0</b><span>Discord servers</span></div>
+  <div class="stat"><b data-n="7">0</b><span>Live documents</span></div><div class="stat"><b>24/7</b><span>Roleplay</span></div></div>
+</header>
+<section id="departments" class="wrap">
+  <div class="sh"><div><h2>Departments</h2><p>Open a department page, or jump straight into its Discord.</p></div>
+  <div class="tools"><input class="search" id="q" placeholder="Filter departments…" aria-label="Filter departments">
+  <button class="chip on" data-f="all">All</button><button class="chip" data-f="law">Law Enforcement</button><button class="chip" data-f="fire">Fire / EMS</button><button class="chip" data-f="civil">Civil</button></div></div>
+  <div class="grid" id="grid"></div>
+</section>
+<section id="hub" class="wrap rv"><div class="hub"><div class="badge" style="width:64px;height:64px"></div><div><h3 class="glow">Department Hub Discord</h3></div>
+<p>The central server for cross-agency announcements, transfers and joint operations. Join this first, then pick your department.</p>
+<a class="btn pri" href="https://discord.gardenstatecollective.com/hub" target="_blank" rel="noopener">Join the Hub ↗</a></div></section>
+<section id="documents" class="wrap"><div class="sh"><div><h2>Handbooks</h2><p>Each handbook opens on its department page as a live embedded document.</p></div></div><div class="docs" id="docs" style="margin-top:0"></div></section>
+<footer><div class="wrap">© <span id="yr"></span> Garden State Collective Gaming LLC · Fictional roleplay organization · Not affiliated with any real agency</div></footer>
+<div id="pal" role="dialog" aria-modal="true" aria-label="Quick search"><div class="pbox"><input id="pin" placeholder="Search departments, Discords, documents…" autocomplete="off"><div class="plist" id="plist"></div></div></div>
+<div id="toast"></div>
+<script src="assets/data.js"></script>
+<script src="assets/portal.js"></script>
+</body>
+</html>
