@@ -1,0 +1,96 @@
+:root {
+  --bg: #eef1ea;
+  --surface: #fbfcf8;
+  --ink: #1f2a24;
+  --muted: #55645b;
+  --green: #2f5d46;
+  --green-dark: #234734;
+  --amber: #b5651d;
+  --line: #c9d1c4;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #17201b;
+    --surface: #1f2b24;
+    --ink: #e8eee9;
+    --muted: #a3b2a9;
+    --green: #7fc29e;
+    --green-dark: #a5d9bb;
+    --amber: #e0a060;
+    --line: #34443a;
+  }
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+.policy {
+  max-width: 44rem;
+  margin: 0 auto;
+  padding: 3rem 1.25rem 4rem;
+}
+h1, h2 {
+  font-family: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.15;
+  margin: 0;
+}
+h1 { font-size: clamp(2.4rem, 8vw, 3.8rem); font-weight: 800; letter-spacing: -0.02em; }
+h2 { font-size: 1.35rem; font-weight: 600; margin-bottom: 0.4rem; }
+.lead { font-size: 1.25rem; margin: 1rem 0; }
+.final {
+  margin: 0;
+  padding: 1rem 1.25rem;
+  background: var(--surface);
+  border-left: 5px solid var(--amber);
+}
+.toc {
+  position: sticky;
+  top: 0;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  padding: 0.75rem 0;
+  margin: 1.5rem 0 0.5rem;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+  font-family: "Bricolage Grotesque", Arial, sans-serif;
+  font-size: 0.95rem;
+}
+.toc a {
+  padding: 0.25rem 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  text-decoration: none;
+}
+.toc a:hover { color: var(--ink); border-color: var(--green); }
+.toc a.active { background: var(--green); border-color: var(--green); color: var(--bg); }
+section { padding: 1.5rem 0; border-bottom: 1px solid var(--line); }
+section p { margin: 0; max-width: 65ch; }
+a { color: var(--green); }
+a:focus-visible, button:focus-visible, input:focus-visible {
+  outline: 3px solid var(--amber);
+  outline-offset: 2px;
+}
+.ack { margin-top: 2rem; padding: 1.5rem; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+.ack label { display: flex; gap: 0.75rem; align-items: flex-start; cursor: pointer; }
+.ack input { width: 1.25rem; height: 1.25rem; margin-top: 0.35rem; accent-color: var(--green); }
+.ack button {
+  margin-top: 1rem;
+  padding: 0.7rem 1.4rem;
+  font: 600 1rem "Bricolage Grotesque", Arial, sans-serif;
+  color: #fff;
+  background: var(--green-dark);
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.ack button:disabled { opacity: 0.4; cursor: not-allowed; }
+.ack-msg { margin: 0.75rem 0 0; min-height: 1.5rem; color: var(--green); }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }

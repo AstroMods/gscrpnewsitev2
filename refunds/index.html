@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>No Refunds Policy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Source+Serif+4:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="policy">
+    <header class="policy-head">
+      <h1>No Refunds Policy</h1>
+      <p class="lead">When you make a purchase from us, you're buying a license to use the digital virtual items included in your purchase.</p>
+      <p class="final"><strong>This transaction is final, and we do not offer refunds.</strong></p>
+    </header>
+
+    <nav class="toc" aria-label="Policy sections">
+      <a href="#bans">Bans</a>
+      <a href="#access">Access</a>
+      <a href="#value">Item value</a>
+      <a href="#terms">Terms</a>
+    </nav>
+
+    <section id="bans">
+      <h2>Bans</h2>
+      <p>If you're banned from the Platform for violating the rules, you won't be eligible for a refund. The Platform reserves the right to enforce bans at its discretion and to modify its rules at any time.</p>
+    </section>
+
+    <section id="access">
+      <h2>Access to the Platform</h2>
+      <p>Access to the Platform is not guaranteed. If the server is discontinued, any virtual items will be lost.</p>
+    </section>
+
+    <section id="value">
+      <h2>Virtual items have no real-world value</h2>
+      <p>All items are virtual and hold no real-world value. They cannot be exchanged for real-world currency.</p>
+    </section>
+
+    <section id="terms">
+      <h2>More information</h2>
+      <p>For more information, please refer to our <a href="/terms">Terms &amp; Conditions</a>.</p>
+    </section>
+
+    <form class="ack" id="ackForm">
+      <label>
+        <input type="checkbox" id="ackBox">
+        <span>I understand that all purchases are final and non-refundable.</span>
+      </label>
+      <button type="submit" id="ackBtn" disabled>Continue to purchase</button>
+      <p class="ack-msg" id="ackMsg" role="status" aria-live="polite"></p>
+    </form>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
