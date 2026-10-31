@@ -2,7 +2,7 @@ var COMMUNITY = "Our Community"; // change to your community's name
 var EFFECTIVE = new Date().toLocaleDateString(undefined,{year:"numeric",month:"long",day:"numeric"});
 document.querySelectorAll(".cn").forEach(function(e){e.textContent=COMMUNITY});
 document.getElementById("eff").textContent=EFFECTIVE;
-document.title="Duel Clan Policy – "+COMMUNITY;
+document.title="Dual Clan Policy – "+COMMUNITY;
 var secs=[].slice.call(document.querySelectorAll("section"));
 var toc=document.getElementById("toc");
 secs.forEach(function(s,i){
