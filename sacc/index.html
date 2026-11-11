@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>San Andreas Communications Center</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:ital,wght@1,700;1,800&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#F2B51D;--gold-d:#b8860b;--ink:#050507;--panel:#0d0d12;--line:#2a2a33;--text:#f3f3f5;--mute:#a4a4b0;--dusk:#7a2a6b;
+--head:'Barlow Condensed','Arial Narrow',Impact,sans-serif;--body:'Barlow',system-ui,sans-serif;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:dark}
+html{scroll-behavior:smooth;scroll-padding-top:calc(72px + env(safe-area-inset-top,0px))}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--ink);color:var(--text);font:400 17px/1.6 var(--body)}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(5,5,7,.92);backdrop-filter:blur(8px);border-bottom:2px solid var(--gold)}
+.bar{display:flex;align-items:center;gap:16px;height:72px}
+.bar img{height:52px;width:auto;border-radius:4px}
+.brand{font:italic 800 22px/1 var(--head);letter-spacing:.02em;text-transform:uppercase;margin-right:auto}
+.brand small{display:block;font:500 12px/1.4 var(--body);font-style:normal;letter-spacing:.28em;color:var(--gold)}
+nav a{color:var(--mute);text-decoration:none;margin-right:20px;font-weight:500;font-size:15px}
+nav a:hover{color:var(--text)}
+.btn{display:inline-block;background:var(--gold);color:#111;font:italic 800 20px/1 var(--head);text-transform:uppercase;letter-spacing:.04em;padding:14px 28px;text-decoration:none;transform:skewX(-8deg);box-shadow:0 0 0 2px var(--ink),0 0 0 4px var(--gold)}
+.btn span{display:inline-block;transform:skewX(8deg)}
+.btn:hover{background:#ffd24d}
+.hero img{display:block;width:100%;height:auto}
+.hero-foot{background:linear-gradient(#050507,#14091a);border-bottom:1px solid var(--line);padding:44px 0}
+.hero-foot .wrap{display:flex;flex-wrap:wrap;gap:24px 48px;align-items:center;justify-content:space-between}
+.hero-foot p{margin:0;max-width:34em;font-size:20px}
+section{padding:84px 0}
+h2{font:italic 800 clamp(34px,5vw,52px)/1 var(--head);text-transform:uppercase;margin:0 0 12px}
+h2::after{content:"";display:block;width:84px;height:4px;background:var(--gold);margin-top:14px}
+.lead{color:var(--mute);max-width:40em;margin:18px 0 44px}
+.duties{display:grid;gap:0}
+.duty{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:12px 40px;padding:26px 0 26px 24px;border-left:4px solid var(--gold);border-bottom:1px solid var(--line);background:linear-gradient(90deg,rgba(242,181,29,.06),transparent 40%)}
+.duty h3{margin:0;font:italic 700 28px/1.1 var(--head);text-transform:uppercase}
+.duty p{margin:0;color:var(--mute)}
+.alt{background:var(--panel);border-block:1px solid var(--line)}
+ol.flow{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:0;counter-reset:s}
+ol.flow li{counter-increment:s;padding:22px 20px 0 0;border-top:3px solid var(--gold);position:relative}
+ol.flow li::before{content:counter(s);position:absolute;top:-17px;left:0;width:31px;height:31px;display:grid;place-items:center;background:var(--gold);color:#111;font:italic 800 18px var(--head);transform:skewX(-8deg)}
+ol.flow b{display:block;font:italic 700 22px/1.1 var(--head);text-transform:uppercase;margin:10px 0 6px}
+ol.flow span{color:var(--mute);font-size:15px;line-height:1.5;display:block}
+.values{display:flex;flex-wrap:wrap;gap:12px}
+.values li{list-style:none;border:1px solid var(--gold);padding:12px 20px;font:italic 700 22px/1 var(--head);text-transform:uppercase;letter-spacing:.03em}
+.values{padding:0;margin:0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:56px}
+.req{margin:0;padding:0;list-style:none}
+.req li{padding:14px 0 14px 34px;border-bottom:1px solid var(--line);position:relative}
+.req li::before{content:"";position:absolute;left:4px;top:23px;width:12px;height:12px;background:var(--gold);transform:skewX(-12deg)}
+details{border-bottom:1px solid var(--line);padding:18px 0}
+summary{cursor:pointer;font:italic 700 24px/1.2 var(--head);text-transform:uppercase;list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--gold);font-size:28px;line-height:1}
+details[open] summary::after{content:"\2212"}
+details p{margin:12px 0 0;color:var(--mute);max-width:44em}
+.cta{text-align:center;background:radial-gradient(ellipse at 50% 120%,rgba(204,60,110,.45),transparent 60%),#0a0510;border-top:2px solid var(--gold)}
+.cta h2::after{margin-inline:auto}
+.cta p{color:var(--mute);margin:0 auto 34px;max-width:32em}
+footer{padding:36px 0;background:#000;border-top:1px solid var(--line);color:var(--mute);font-size:14px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:12px 32px;justify-content:space-between;align-items:center}
+footer .t{letter-spacing:.35em;text-transform:uppercase;color:var(--text);font-weight:500}
+@media(max-width:860px){nav{display:none}ol.flow{grid-template-columns:1fr;gap:34px}.two{grid-template-columns:1fr;gap:40px}.duty{grid-template-columns:1fr}.bar .btn{padding:11px 18px;font-size:17px}}
+@media(max-width:480px){.brand small{display:none}.brand{font-size:18px}.hero-foot{padding:32px 0}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header>
+ <div class="wrap bar">
+  <img src="assets/logo.jpg" alt="State of San Andreas 911 Communications Department emblem">
+  <div class="brand">San Andreas Communications Center<small>Communications Department</small></div>
+  <nav aria-label="Main"><a href="#about">About</a><a href="#shift">A shift</a><a href="#join">Requirements</a><a href="#faq">FAQ</a></nav>
+  <a class="btn" href="https://link.gardenstatecollective.com/san-center-app" target="_blank" rel="noopener"><span>Apply now</span></a>
+ </div>
+</header>
+<main>
+<div class="hero">
+ <img src="assets/hero.jpg" alt="San Andreas Communications Center: a dispatcher at a bank of map screens above a city skyline at dusk, with a police helicopter overhead">
+ <div class="hero-foot"><div class="wrap">
+  <p>Every officer, firefighter and paramedic in San Andreas starts with a voice on the radio. Be that voice.</p>
+  <a class="btn" href="https://link.gardenstatecollective.com/san-center-app" target="_blank" rel="noopener"><span>Apply to the Communications Department</span></a>
+ </div></div>
+</div>
+
+<section id="about"><div class="wrap">
+ <h2>What we do</h2>
+ <p class="lead">The Communications Center is the first point of contact for every emergency in the state. We take the call, send the right units, and keep everyone on the scene informed.</p>
+ <div class="duties">
+  <div class="duty"><h3>911 call taking</h3><p>Answer emergency calls, get the location and the nature of the problem, and keep callers calm while help is on the way.</p></div>
+  <div class="duty"><h3>Radio dispatch</h3><p>Send law enforcement, fire and EMS units to calls, track their status, and relay updates over the air in clear, short traffic.</p></div>
+  <div class="duty"><h3>Unit support</h3><p>Run plates and names, log calls, watch officer safety, and make sure the person in the field has what they need.</p></div>
+ </div>
+</div></section>
+
+<section id="shift" class="alt"><div class="wrap">
+ <h2>A call, start to finish</h2>
+ <p class="lead">Every call follows the same path through the Center.</p>
+ <ol class="flow">
+  <li><b>Answer</b><span>Pick up and confirm the location first.</span></li>
+  <li><b>Triage</b><span>Decide what happened and how urgent it is.</span></li>
+  <li><b>Dispatch</b><span>Send the right unit on the right channel.</span></li>
+  <li><b>Support</b><span>Track the unit and relay new information.</span></li>
+  <li><b>Close</b><span>Log the outcome and clear the call.</span></li>
+ </ol>
+</div></section>
+
+<section id="values"><div class="wrap">
+ <h2>What we stand for</h2>
+ <p class="lead">These five words are on our emblem. They are also how we expect every dispatcher to work.</p>
+ <ul class="values"><li>Honesty</li><li>Integrity</li><li>Professionalism</li><li>Community</li><li>Accountability</li></ul>
+</div></section>
+
+<section id="join" class="alt"><div class="wrap two">
+ <div>
+  <h2>Who we’re looking for</h2>
+  <p class="lead" style="margin-bottom:0">You don’t need prior dispatch experience. You need to be reliable and calm when the channel gets busy.</p>
+ </div>
+ <ul class="req">
+  <li>A working microphone and clear audio</li>
+  <li>Calm, clear communication under pressure</li>
+  <li>Active in the community Discord</li>
+  <li>Willingness to complete training and follow procedure</li>
+  <li>Respect for staff, members and fellow responders</li>
+ </ul>
+</div></section>
+
+<section id="faq"><div class="wrap">
+ <h2>Questions</h2>
+ <div style="margin-top:32px">
+  <details><summary>How do I apply?</summary><p>Select Apply now and complete the application form. It opens in a new tab.</p></details>
+  <details><summary>What happens after I apply?</summary><p>The Communications Department staff review your application and contact you through Discord with the next steps.</p></details>
+  <details><summary>Do I need dispatch experience?</summary><p>No. New dispatchers are trained before they take live calls.</p></details>
+  <details><summary>Who do I work with?</summary><p>Law enforcement, fire and EMS. Dispatch is the link between all three.</p></details>
+ </div>
+</div></section>
+
+<section class="cta"><div class="wrap">
+ <h2>Take the next call</h2>
+ <p>Applications for the San Andreas Communications Center are open.</p>
+ <a class="btn" href="https://link.gardenstatecollective.com/san-center-app" target="_blank" rel="noopener"><span>Apply now</span></a>
+</div></section>
+</main>
+<footer><div class="wrap"><span class="t">Communications Department</span><span>State of San Andreas &middot; San Andreas Communications Center</span></div></footer>
+</body>
+</html>
